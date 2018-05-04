@@ -50,6 +50,10 @@ a {
     color: #4c4c4c;
 }
 
+.social-networks > a:hover > .fa-blogger-b {
+    color: #996c22;
+}
+
 .social-networks > a:hover > .fa-file-alt {
     color: #339999;
 }
@@ -226,6 +230,16 @@ a {
     font-weight: normal;
 }
 
+.timeline-header__desc {
+    margin: 0 150px 0 150px;
+    font-size: 20px;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.95);
+    font-family: Cardo;
+    font-weight: normal;
+    line-height: 25px;
+}
+
 .timeline-header__social {
     color: rgba(0, 0, 0, 0.5);
     font-family: "Pathway Gothic One", sans-serif;
@@ -235,12 +249,12 @@ a {
     font-weight: normal;
 }
 
-.demo-footer {
+.footer {
     padding: 60px 0;
     text-align: center;
 }
 
-.demo-footer a {
+.footer a {
     color: #999999;
     display: inline-block;
     font-family: Cardo;
