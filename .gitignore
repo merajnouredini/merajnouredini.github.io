@@ -36,3 +36,4 @@ Thumbs.db
 *.zip
 
 ghost/vol/logs/
+node_modules/
