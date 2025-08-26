@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* Makes the background transparent to blend with Notion */
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <!-- Main widget container -->
+    <div id="widget-container" class="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm border border-gray-200">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Hello, Notion! 👋</h1>
+        <p class="text-sm text-gray-600">This is a custom widget created with HTML, CSS, and JavaScript.</p>
+        <div class="mt-4 text-center">
+            <p class="text-3xl font-extrabold text-blue-600" id="dynamic-content">
+                Loading...
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // This is where you would add your custom logic.
+        // For example, you could fetch data from an API, display the current time,
+        // or show a random quote.
+        document.addEventListener('DOMContentLoaded', () => {
+            const dynamicContentElement = document.getElementById('dynamic-content');
+
+            // Example of a simple function to update the content after a delay
+            setTimeout(() => {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                dynamicContentElement.textContent = `The time is: ${timeString}`;
+            }, 1000); // Wait for 1 second to simulate loading data
+        });
+    </script>
+</body>
+</html>
