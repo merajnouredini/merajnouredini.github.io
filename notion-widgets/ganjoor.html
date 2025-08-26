@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            /* Makes the background transparent to blend with Notion */
+        }
+
+        .ganjoor-block {
+            width: 100%;
+            display: block;
+            margin: auto;
+            text-align: center;
+            font: normal 12px tahoma;
+        }
+
+        .ganjoor-block-title {
+            display: none;
+            width: 100%;
+            border-bottom: 1px dotted #000;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin: 0px;
+        }
+
+        .ganjoor-poem-block {
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .ganjoor-m1,
+        .ganjoor-m2 {
+            width: 100%;
+            float: right;
+            text-align: center;
+            display: block;
+        }
+
+        .ganjoor-footer {
+            display: none;
+            width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .ganjoor-poet {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+    <!-- Main widget container -->
+    <div id="widget-container" class="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm border border-gray-200">
+        <div id="ganjoorid"></div>
+    </div>
+    <script type="text/javascript" language="JavaScript">
+        var gabjoorblock = '';
+        var ganjoorblocktitle = '';
+        gabjoorblock += '<div class="ganjoor-block">';
+        gabjoorblock += '<div class="ganjoor-block-title">';
+        gabjoorblock += ganjoorblocktitle;
+        gabjoorblock += '</div>';
+        gabjoorblock += '<div class="ganjoor-poem-block">';
+
+        gabjoorblock += '<div class="ganjoor-m1">در این غوغا که کَس کَس را نپُرسد</div>';
+        gabjoorblock += '<div class="ganjoor-m2">من از پیرِ مُغان منّت پذیرم</div>';
+        gabjoorblock += '<br style="clear:both;" />';
+        gabjoorblock += '</div>';
+        gabjoorblock += '<div class="ganjoor-footer">';
+        gabjoorblock += '<div class="ganjoor-poet"><a href="https://ganjoor.net/hafez/ghazal/sh332">حافظ</a></div>';
+        gabjoorblock += '<br style="clear:both;" />';
+        gabjoorblock += '</div>';
+        gabjoorblock += '</div>';
+
+        document.getElementById('ganjoorid').innerHTML = gabjoorblock;
+    </script>
+</body>
+
+</html>
