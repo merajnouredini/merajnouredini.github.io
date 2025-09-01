@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Widget</title>
+    <title>Notion Ganjoor Widget</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        @font-face {
+            font-family: myFirstFont;
+            src: url(sansation_light.woff);
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -20,46 +28,14 @@
             /* Makes the background transparent to blend with Notion */
         }
 
-        .ganjoor-block {
-            width: 100%;
-            display: block;
-            margin: auto;
+        #verse1,
+        #verse2 {
+            font-family: "Lalezar", sans-serif;
+            max-width: 65ch;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-wrap: pretty;
             text-align: center;
-            font: normal 12px tahoma;
-        }
-
-        .ganjoor-block-title {
-            display: none;
-            width: 100%;
-            border-bottom: 1px dotted #000;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            margin: 0px;
-        }
-
-        .ganjoor-poem-block {
-            display: block;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-
-        .ganjoor-m1,
-        .ganjoor-m2 {
-            width: 100%;
-            float: right;
-            text-align: center;
-            display: block;
-        }
-
-        .ganjoor-footer {
-            display: none;
-            width: 100%;
-            padding-top: 2px;
-            padding-bottom: 2px;
-        }
-
-        .ganjoor-poet {
-            display: none;
         }
     </style>
 </head>
@@ -68,28 +44,61 @@
 
     <!-- Main widget container -->
     <div id="widget-container" class="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm border border-gray-200">
-        <div id="ganjoorid"></div>
+        <div id="verse1" class="text-2xl font-medium text-gray-700 mb-4">
+            <span class="text-gray-400">...</span>
+        </div>
+        <div id="verse2" class="text-2xl font-medium text-gray-700">
+            <span class="text-gray-400">...</span>
+        </div>
     </div>
     <script type="text/javascript" language="JavaScript">
-        var gabjoorblock = '';
-        var ganjoorblocktitle = '';
-        gabjoorblock += '<div class="ganjoor-block">';
-        gabjoorblock += '<div class="ganjoor-block-title">';
-        gabjoorblock += ganjoorblocktitle;
-        gabjoorblock += '</div>';
-        gabjoorblock += '<div class="ganjoor-poem-block">';
+        async function fetchBeyt() {
+            const url = "https://api.ganjoor.net/api/ganjoor/poem/random?poetId=2";
 
-        gabjoorblock += '<div class="ganjoor-m1">در این غوغا که کَس کَس را نپُرسد</div>';
-        gabjoorblock += '<div class="ganjoor-m2">من از پیرِ مُغان منّت پذیرم</div>';
-        gabjoorblock += '<br style="clear:both;" />';
-        gabjoorblock += '</div>';
-        gabjoorblock += '<div class="ganjoor-footer">';
-        gabjoorblock += '<div class="ganjoor-poet"><a href="https://ganjoor.net/hafez/ghazal/sh332">حافظ</a></div>';
-        gabjoorblock += '<br style="clear:both;" />';
-        gabjoorblock += '</div>';
-        gabjoorblock += '</div>';
+            try {
+                // Fetch data from the API endpoint
+                const response = await fetch(url);
 
-        document.getElementById('ganjoorid').innerHTML = gabjoorblock;
+                // Check if the request was successful
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Parse the JSON response
+                const data = await response.json();
+
+                // Access the two parts of the poem from the data object
+                let m1 = data.verses[0].text;
+                let m2 = data.verses[1].text;
+
+                // The API returns a character entity for the zero-width non-joiner (`&#x200C;`).
+                // This replaces the entity with the actual character so it renders correctly.
+                const ZWNJ = String.fromCharCode(8204);
+                m1 = m1.replace(/&#x200C;/g, ZWNJ);
+                m2 = m2.replace(/&#x200C;/g, ZWNJ);
+
+                // Get the HTML elements to display the verses
+                const verse1Element = document.getElementById('verse1');
+                const verse2Element = document.getElementById('verse2');
+
+                // Store the fetched text in the HTML elements
+                verse1Element.textContent = m1;
+                verse2Element.textContent = m2;
+
+            } catch (error) {
+                // Log any errors to the console
+                console.error("Could not fetch the poem:", error);
+
+                // Display a user-friendly error message on the page
+                const verse1Element = document.getElementById('verse1');
+                const verse2Element = document.getElementById('verse2');
+                verse1Element.textContent = "!!!";
+                verse2Element.textContent = "";
+            }
+        }
+
+        // Call the function when the script loads to fetch and display the poem
+        fetchBeyt();
     </script>
 </body>
 
